@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Techify | Modern SaaS Tool</title>
+  <style>
+    /* Color variables */
+    :root {
+      --background-color: #ffffff;
+      --text-color: #222222;
+      --primary-color: #4f46e5;
+      --card-bg: #f9f9f9;
+      --shadow-color: rgba(0,0,0,0.05);
+    }
+    
+    /* Dark mode colors */
+    body.dark-theme {
+      --background-color: #18181b;
+      --text-color: #e5e7eb;
+      --primary-color: #6366f1;
+      --card-bg: #27272a;
+      --shadow-color: rgba(0,0,0,0.2);
+    }
+    
+    /* Base styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Header styles */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 1px 3px var(--shadow-color);
+    }
+    
+    .brand {
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .main-nav {
+      display: flex;
+      gap: 1.8rem;
+    }
+    
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+      position: relative;
+    }
+    
+    .nav-link:hover:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .theme-toggle {
+      cursor: pointer;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: opacity 0.2s;
+    }
+    
+    .theme-toggle:hover {
+      opacity: 0.9;
+    }
+    
+    /* Hero section */
+    .hero-section {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .hero-title {
+      font-size: 2.6rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+    
+    .hero-text {
+      font-size: 1.15rem;
+      margin-bottom: 2.2rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+    
+    .primary-button {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.85rem 1.8rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+    
+    /* Section common styles */
+    .content-section {
+      padding: 4.5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+    
+    /* Features section */
+    .features-section {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.8rem;
+    }
+    
+    .feature-card {
+      background: var(--background-color);
+      padding: 1.8rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px var(--shadow-color);
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px var(--shadow-color);
+    }
+    
+    .feature-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .feature-description {
+      line-height: 1.6;
+      opacity: 0.85;
+    }
+    
+    /* Testimonials section */
+    .testimonials-section {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .testimonial-card {
+      background: var(--background-color);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px var(--shadow-color);
+      position: relative;
+    }
+    
+    .testimonial-card:before {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      opacity: 0.1;
+      line-height: 1;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+    }
+    
+    /* Pricing section */
+    .pricing-section {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+    }
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.2rem;
+    }
+    
+    .pricing-card {
+      background: var(--background-color);
+      padding: 2.2rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px var(--shadow-color);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px var(--shadow-color);
+    }
+    
+    .plan-name {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .price {
+      font-size: 2.2rem;
+      margin: 1.2rem 0;
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+    
+    .plan-description {
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+      opacity: 0.85;
+    }
+    
+    /* Footer */
+    .page-footer {
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.9rem;
+      color: #888;
+      border-top: 1px solid var(--shadow-color);
+    }
+    
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .main-nav {
+        display: none;
+      }
+      
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      
+      .content-section {
+        padding: 3.5rem 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .page-header {
+        padding: 1rem;
+      }
+      
+      .hero-section {
+        padding: 3rem 1rem;
+      }
+      
+      .hero-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="brand">Techify</div>
+    <nav class="main-nav">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#testimonials" class="nav-link">Testimonials</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle">Dark Mode</button>
+  </header>
+
+  <section class="hero-section">
+    <h1 class="hero-title">Supercharge Your Workflow</h1>
+    <p class="hero-text">Techify is the all-in-one SaaS platform that makes your team more productive, efficient, and connected.</p>
+    <a href="#pricing" class="primary-button">Get Started</a>
+  </section>
+
+  <section class="content-section features-section" id="features">
+    <h2 class="section-title">Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3 class="feature-title">Real-time Collaboration</h3>
+        <p class="feature-description">Work with your team anywhere, anytime with instant sync and seamless communication tools.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title">Powerful Analytics</h3>
+        <p class="feature-description">Make data-driven decisions with intuitive dashboards and detailed reporting features.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title">Secure Cloud</h3>
+        <p class="feature-description">Your data is protected with enterprise-grade security and regular backups.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section testimonials-section" id="testimonials">
+    <h2 class="section-title">What Our Users Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Techify has completely transformed how we manage projects. The collaboration features saved us countless hours of back-and-forth communication."</p>
+        <strong class="testimonial-author">- Sarah, Project Manager</strong>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"I can't imagine going back to the old way of working! The analytics dashboard gives me insights I never had before."</p>
+        <strong class="testimonial-author">- Alex, Developer</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section pricing-section" id="pricing">
+    <h2 class="section-title">Pricing</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 class="plan-name">Starter</h3>
+        <p class="price">$9/mo</p>
+        <p class="plan-description">Perfect for individuals just getting started with basic features and support.</p>
+        <a href="#" class="primary-button">Choose Plan</a>
+      </div>
+      <div class="pricing-card">
+        <h3 class="plan-name">Pro</h3>
+        <p class="price">$29/mo</p>
+        <p class="plan-description">Best for small teams who want to scale with advanced features and priority support.</p>
+        <a href="#" class="primary-button">Choose Plan</a>
+      </div>
+      <div class="pricing-card">
+        <h3 class="plan-name">Enterprise</h3>
+        <p class="price">Custom</p>
+        <p class="plan-description">Tailored solutions for large organizations with dedicated support and customization.</p>
+        <a href="#" class="primary-button">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    © 2025 Techify. All rights reserved.
+  </footer>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("theme-toggle");
+    
+    themeToggle.addEventListener("click", function() {
+      document.body.classList.toggle("dark-theme");
+      
+      // Update button text based on current theme
+      if (document.body.classList.contains("dark-theme")) {
+        themeToggle.textContent = "Light Mode";
+      } else {
+        themeToggle.textContent = "Dark Mode";
+      }
+    });
+  </script>
+</body>
+</html>
