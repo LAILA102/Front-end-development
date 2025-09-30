@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collapsible Sidebar Navigation</title>
+    <style>
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Sidebar styles */
+        .navigation-panel {
+            width: 260px;
+            background-color: #1f2937;
+            color: #ffffff;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navigation-panel.hidden {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        
+        .brand {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .navigation-menu {
+            flex: 1;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.9rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.12);
+            transform: translateX(5px);
+        }
+        
+        .nav-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Toggle button */
+        .menu-toggle {
+            position: fixed;
+            top: 1.2rem;
+            left: 1.2rem;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .menu-toggle:hover {
+            background: #4338ca;
+            transform: scale(1.05);
+        }
+        
+        /* Main content area */
+        .content-area {
+            flex: 1;
+            padding: 2.5rem;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+        }
+        
+        .page-title {
+            color: #1f2937;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+        
+        .content-text {
+            line-height: 1.6;
+            color: #4b5563;
+            font-size: 1.1rem;
+        }
+        
+        /* Mobile adjustments */
+        @media screen and (max-width: 768px) {
+            .navigation-panel {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 99;
+                width: 280px;
+            }
+            
+            .content-area {
+                padding: 2rem 1.5rem;
+            }
+            
+            .menu-toggle {
+                top: 1rem;
+                left: 1rem;
+            }
+            
+            .page-title {
+                margin-top: 2rem;
+            }
+        }
+        
+        /* Extra small screens */
+        @media screen and (max-width: 480px) {
+            .navigation-panel {
+                width: 100%;
+            }
+            
+            .content-area {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">☰</button>
+    
+    <aside class="navigation-panel hidden" id="navPanel">
+        <div class="brand">ACME Corp</div>
+        <nav class="navigation-menu">
+            <a href="#" class="nav-item">
+                <span class="nav-icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📂</span>
+                <span>Projects</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">✅</span>
+                <span>Tasks</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📊</span>
+                <span>Reports</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </nav>
+    </aside>
+    
+    <main class="content-area">
+        <h1 class="page-title">Dashboard Overview</h1>
+        <p class="content-text">
+            This is the main content area of the application. Click the menu button in the top-left corner 
+            to open or close the navigation sidebar. The sidebar provides quick access to different sections 
+            of the application.
+        </p>
+        <p class="content-text">
+            On mobile devices, the sidebar will overlay the content when opened, providing a clean and 
+            focused navigation experience.
+        </p>
+    </main>
+
+    <script>
+        // Get DOM elements
+        const menuToggle = document.getElementById('menuToggle');
+        const navPanel = document.getElementById('navPanel');
+        
+        // Toggle sidebar visibility
+        menuToggle.addEventListener('click', function() {
+            navPanel.classList.toggle('hidden');
+            
+            // Update button text for better UX
+            if (navPanel.classList.contains('hidden')) {
+                menuToggle.textContent = '☰';
+            } else {
+                menuToggle.textContent = '✕';
+            }
+        });
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const isMobile = window.innerWidth <= 768;
+            const isClickInsideNav = navPanel.contains(event.target);
+            const isClickOnToggle = menuToggle.contains(event.target);
+            
+            if (isMobile && !navPanel.classList.contains('hidden') && 
+                !isClickInsideNav && !isClickOnToggle) {
+                navPanel.classList.add('hidden');
+                menuToggle.textContent = '☰';
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navPanel.classList.contains('hidden')) {
+                navPanel.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
